@@ -706,6 +706,17 @@ class TestErrorTree(TestCase):
         tree = exceptions.ErrorTree([error])
         self.assertEqual(tree.errors, {"foo": error})
 
+    def test_false_schema_errors_have_a_None_key(self):
+        error, = _LATEST_VERSION(False).iter_errors(12)
+        tree = exceptions.ErrorTree([error])
+        self.assertEqual(tree.errors, {None: error})
+
+    def test_nested_false_schema_errors_have_a_None_key(self):
+        schema = {"properties": {"foo": False}}
+        error, = _LATEST_VERSION(schema).iter_errors({"foo": 12})
+        tree = exceptions.ErrorTree([error])
+        self.assertEqual(tree["foo"].errors, {None: error})
+
     def test_it_creates_a_child_tree_for_each_nested_path(self):
         errors = [
             exceptions.ValidationError("a bar message", path=["bar"]),

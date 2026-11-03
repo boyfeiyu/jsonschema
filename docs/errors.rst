@@ -38,11 +38,14 @@ raised or returned, depending on which method or function is used.
     .. attribute:: validator
 
         The name of the failed `keyword
-        <https://json-schema.org/draft/2020-12/json-schema-validation.html#name-a-vocabulary-for-structural>`_.
+        <https://json-schema.org/draft/2020-12/json-schema-validation.html#name-a-vocabulary-for-structural>`_,
+        or ``None`` if the error was caused by a false boolean schema,
+        which has no keyword.
 
     .. attribute:: validator_value
 
-        The associated value for the failed keyword in the schema.
+        The associated value for the failed keyword in the schema,
+        or ``None`` if the error was caused by a false boolean schema.
 
     .. attribute:: schema
 
